@@ -7,7 +7,15 @@
       <Transition name="fade" mode="out-in">
         <div v-if="currentSlide" :key="currentSlide.id" class="w-full h-full flex flex-col">
           <!-- Slide Base Content -->
-          <div class="slide-content" v-html="sanitize(currentSlide.content)"></div>
+          <div class="slide-content">
+            <template v-if="currentSlide.content.includes('<AwsArchitectureDiagram />')">
+              <div v-html="sanitize(currentSlide.content.replace('<AwsArchitectureDiagram />', ''))"></div>
+              <AwsArchitectureDiagram :currentStep="currentStepIndex" class="mt-8" />
+            </template>
+            <template v-else>
+              <div v-html="sanitize(currentSlide.content)"></div>
+            </template>
+          </div>
           
           <!-- Slide Steps -->
           <div v-if="currentSlide.steps" class="flex flex-col gap-4 mt-8">
@@ -31,9 +39,10 @@
 import { watch, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import DOMPurify from 'dompurify';
+import AwsArchitectureDiagram from '../components/AwsArchitectureDiagram.vue';
 import { useDeck } from '../composables/useDeck';
 import { useKeyboardControls } from '../composables/useKeyboardControls';
-import { dummySlides } from '../data/dummySlides';
+import slidesData from '../data/slides.json';
 
 const route = useRoute();
 const router = useRouter();
@@ -44,7 +53,8 @@ const sanitize = (html: string) => DOMPurify.sanitize(html);
 useKeyboardControls({ next, prev });
 
 onMounted(() => {
-  initDeck(dummySlides);
+  // Inicializamos con el JSON parseado de pitch.md en vez de dummySlides
+  initDeck(slidesData as any);
   syncStateFromRoute();
 });
 
@@ -63,6 +73,15 @@ watch([currentSlideIndex, currentStepIndex], ([newSlide, newStep]) => {
   }
 });
 
+// Watcher para simular la emisión de interacción cuando entramos a una slide con trigger
+watch(currentSlideIndex, (newIndex) => {
+  const slide = slidesData[newIndex] as any;
+  if (slide && slide.interactionTrigger) {
+    console.log(`[Interaction Trigger Fired]: ${slide.interactionTrigger} en la slide ${newIndex}`);
+    // Aquí, en la Fase 3, emitiremos por Socket.io hacia el servidor.
+  }
+}, { immediate: true });
+
 function syncStateFromRoute() {
   if (route.name === 'deck') {
     let slide = parseInt(route.params.slide as string, 10);
@@ -70,12 +89,12 @@ function syncStateFromRoute() {
     
     // Bounds checking and clamping
     if (!isNaN(slide)) {
-      slide = Math.max(0, Math.min(slide, dummySlides.length - 1));
+      slide = Math.max(0, Math.min(slide, slidesData.length - 1));
       currentSlideIndex.value = slide;
     }
     
     if (!isNaN(step)) {
-      const currentSlideData = dummySlides[currentSlideIndex.value];
+      const currentSlideData = slidesData[currentSlideIndex.value] as any;
       const maxSteps = currentSlideData.steps ? currentSlideData.steps.length - 1 : -1;
       step = Math.max(-1, Math.min(step, maxSteps));
       currentStepIndex.value = step;

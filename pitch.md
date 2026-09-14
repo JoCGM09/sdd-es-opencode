@@ -1,7 +1,8 @@
-## SPEECH: "Cuando la IA no sabe de dónde vienen sus datos"
+---
+<!-- trigger: poll-apertura -->
+# Cuando la IA no sabe de dónde vienen sus datos
 
-**[00:00 – 03:00] — APERTURA**
-
+<!-- notes:
 Buenos días a todos. Antes de empezar, quiero hacerles una pregunta simple, y quiero que la piensen en silencio, no me la respondan todavía.
 
 *[pausa]*
@@ -17,11 +18,21 @@ Bien. Ahora la segunda pregunta, la que realmente importa: si ese agente les da 
 Para la mayoría de equipos con los que he trabajado, la respuesta honesta es: "no lo sabemos con certeza" o "tardaríamos horas, quizás días". Y ese es exactamente el problema del que les quiero hablar hoy.
 
 Mi nombre es Jose, trabajo en proyectos de datos e infraestructura en la nube — Google Cloud principalmente, aunque hoy les voy a hablar de una arquitectura en AWS porque el patrón que resuelve es universal. Y el tema de hoy es este: **cómo la inteligencia artificial, y en particular los agentes de IA, están exponiendo un problema que llevábamos años ignorando en ingeniería de datos: la falta de linaje.**
+-->
 
 ---
+# ¿Por qué conectar un agente a un Data Warehouse o Data Lake?
 
-**[03:00 – 08:00] — BLOQUE NUEVO: ¿POR QUÉ CONECTAR UN AGENTE A UN DATA WAREHOUSE O DATA LAKE?**
+--
+**Contexto en tiempo real**
 
+--
+**Acción, no solo conversación**
+
+--
+**Escala**
+
+<!-- notes:
 Antes de hablar del dolor, quiero asegurarme de que todos partimos del mismo punto: ¿por qué querríamos conectar un agente de IA directamente a un data warehouse o a un data lake, en primer lugar?
 
 Un modelo de lenguaje, por sí solo —el motor detrás de un agente— no sabe nada de su empresa. Sabe lenguaje, sabe patrones generales del mundo, pero no sabe cuántas unidades vendieron ayer en la región norte, ni qué cliente está a punto de cancelar su contrato. Esa información vive en un solo lugar: sus sistemas de datos.
@@ -41,11 +52,22 @@ Un **data lake** es más como un almacén general: guarda datos en su forma más
 **Tercero: escala.** Ningún humano puede leer diez millones de filas de transacciones y encontrar el patrón anómalo en segundos. Un agente conectado a un warehouse o un lake sí puede — con la consulta correcta, en el momento correcto.
 
 Entonces sí, conectar agentes a nuestros datos es exactamente lo que deberíamos estar haciendo. **El problema no es la conexión en sí — el problema es que la mayoría de organizaciones la está haciendo sin haber resuelto primero la trazabilidad de lo que hay del otro lado de esa conexión.** Y ahí es donde empieza el dolor real del que les quiero hablar.
+-->
 
 ---
+<!-- trigger: poll-pulso -->
+# El Dolor: Por qué la IA cambió las reglas del juego
 
-**[08:00 – 17:00] — EL DOLOR: POR QUÉ LA IA CAMBIÓ LAS REGLAS DEL JUEGO**
+--
+**1. Velocidad**
 
+--
+**2. Cascada**
+
+--
+**3. Opacidad**
+
+<!-- notes:
 Durante años, cuando un dashboard mostraba un número mal, el proceso era molesto pero manejable: alguien —humano, con contexto, con memoria del proyecto— abría el código SQL, seguía el hilo hacia atrás, y en algún momento encontraba el problema. Lento, sí. Pero manejable, porque había un humano en el medio que entendía el negocio y podía cuestionar el resultado antes de actuar sobre él.
 
 Con la IA generativa y, sobre todo, con los agentes autónomos, ese humano en el medio está desapareciendo.
@@ -77,11 +99,27 @@ Y quiero ser específico sobre por qué esto no es solo "más de lo mismo, pero 
 Entonces la pregunta que toda organización que está adoptando IA debería estar haciéndose no es "¿qué modelo usamos?" o "¿qué framework de agentes elegimos?". La pregunta debería ser: **"si algo sale mal, ¿podemos rastrear en segundos qué dato lo causó, y podemos demostrar qué otros sistemas downstream fueron afectados?"**
 
 Para la mayoría de empresas hoy, la respuesta sigue siendo no. Y eso es exactamente el vacío que quiero mostrarles cómo cerrar.
+-->
 
 ---
+# Los Conceptos Fundamentales
 
-**[17:00 – 29:00] — LOS CONCEPTOS FUNDAMENTALES**
+--
+**1. dbt (data build tool)**
 
+--
+**2. Modelos dbt vs Modelos de IA**
+
+--
+**3. Catálogo de Datos**
+
+--
+**4. Linaje de Datos**
+
+--
+**5. OpenLineage**
+
+<!-- notes:
 Antes de llegar a la solución técnica, necesitamos un vocabulario común. Voy a explicar cinco conceptos, cada uno con una analogía simple, porque quiero que todos en esta sala —sean ingenieros de datos o no— se vayan entendiendo exactamente de qué estamos hablando.
 
 **Concepto uno: dbt, data build tool.**
@@ -133,11 +171,21 @@ Es un estándar abierto, no un producto de un vendor específico. Eso importa: s
 Entonces, resumiendo estas cinco piezas en una sola frase: **dbt organiza sus modelos —sus recetas SQL— en un mapa de dependencias, el catálogo organiza todos los datos de la organización, el linaje conecta ambos mundos mostrando el camino completo, y OpenLineage es el traductor que hace esa conexión automática en vez de manual.**
 
 ¿Por qué les importa esto en el contexto de IA y agentes? Porque un agente de IA, cuando responde una pregunta o toma una decisión, está parado sobre estas capas sin que ustedes lo vean. Si cualquiera de esas capas está rota o desconectada, el agente hereda ese problema — y lo hereda en silencio, sin avisarles.
+-->
 
 ---
+# El Costo Real de No Tener Esto
 
-**[29:00 – 34:00] — EL COSTO REAL DE NO TENER ESTO**
+--
+**1. Respuestas seguras pero equivocadas**
 
+--
+**2. Imposibilidad de auditoría en compliance**
+
+--
+**3. Pérdida de confianza organizacional**
+
+<!-- notes:
 Quiero darles números y escenarios concretos antes de pasar a la solución, porque quiero que esto no se sienta abstracto.
 
 Escenario uno, el que ya mencioné pero ahora con más detalle: un equipo con, digamos, ciento cincuenta modelos dbt. La documentación vive en Confluence, y como toda documentación manual, está desactualizada seis meses después de escrita. Alguien conecta un agente de IA a este entorno para que responda preguntas de negocio. El agente hace lo que puede: lee las tablas, lee lo que encuentra de metadata, y responde con seguridad — pero esa seguridad está construida sobre información parcial.
@@ -153,11 +201,14 @@ Y el tercer costo, el más silencioso de todos: **la confianza organizacional.**
 Esto me lleva al punto central de la charla: **antes de invertir en más agentes, más modelos, más casos de uso de IA generativa, la pregunta que toda organización debería resolver primero es: ¿tenemos trazabilidad automática de nuestros datos?** Porque sin eso, cada agente nuevo que conectan es un riesgo nuevo que no pueden auditar.
 
 Ahora sí, vamos a la parte práctica: cómo se resuelve esto, con una arquitectura real, completamente automatizada, que no depende de que un humano actualice documentación a mano.
+-->
 
 ---
+# Arquitectura Serverless en AWS
 
-**[34:00 – 52:00] — LA SOLUCIÓN: ARQUITECTURA SERVERLESS EN AWS**
+<AwsArchitectureDiagram />
 
+<!-- notes:
 Lo que les voy a mostrar es una arquitectura de referencia publicada por el equipo de AWS, que resuelve exactamente el problema que acabamos de describir: capturar el linaje de las transformaciones dbt de forma automática, sin intervención manual, y conectarlo directamente con el catálogo de datos de la organización.
 
 La idea central, antes de entrar en los servicios: **queremos que cada vez que dbt transforme datos, el linaje se capture y se publique solo — sin que nadie tenga que acordarse de documentar nada.**
@@ -186,7 +237,7 @@ Esta arquitectura elimina todo eso. La librería openlineage-python incluye un t
 
 La configuración, honestamente, es de apenas tres líneas:
 
-```
+```yaml
 transport:
   type: amazon_datazone_api
   domainId: "<su-domain-id>"
@@ -212,11 +263,12 @@ Dos detalles más que quiero mencionar porque hablan directamente de robustez op
 **Aislamiento de fallos:** la arquitectura separa deliberadamente la ejecución de dbt de la publicación de linaje. Si el servicio de linaje no está disponible en el momento de publicar, los datos ya se transformaron correctamente — la integridad del pipeline no se ve afectada. Y si dbt falla, el pipeline se detiene y no se publican eventos de linaje parciales que después confundirían el grafo con información incompleta.
 
 **Seguridad con mínimo privilegio:** cada componente tiene exactamente los permisos que necesita, ni uno más. El contenedor puede ejecutar consultas en Athena, leer y escribir en el catálogo, y publicar eventos al dominio específico de linaje. El orquestador solo puede lanzar tareas — no puede tocar datos directamente. Todas las credenciales son temporales y rotan automáticamente.
+-->
 
 ---
+# Cerrando el Círculo: De vuelta a la IA
 
-**[52:00 – 57:00] — CERRANDO EL CÍRCULO: DE VUELTA A LA IA**
-
+<!-- notes:
 Ahora quiero que volvamos al inicio de la charla, al agente que disparó órdenes de compra basado en un dato mal calculado.
 
 Con esta arquitectura funcionando, ese mismo escenario se ve completamente distinto. El filtro mal puesto en el modelo upstream — el que tardó dos semanas en detectarse en el escenario original — ahora es visible en el grafo de linaje desde la primera ejecución después del error. Un ingeniero, o incluso un sistema de monitoreo automatizado, puede preguntar: *"¿qué modelos se modificaron en las últimas veinticuatro horas que alimentan esta tabla?"* y obtener la respuesta en segundos.
@@ -226,11 +278,22 @@ Y aquí quiero plantear algo que va un paso más allá de lo que dice el blog or
 Piensen en esto: si un agente de IA, antes de actuar sobre un dato, pudiera consultar automáticamente "¿este dato viene de una fuente con linaje completo y verificado, o de una fuente parcial?", ese agente podría ajustar su nivel de confianza en la respuesta. Podría decir "tengo alta confianza en esto" o "esto viene de una tabla que no se ha actualizado en dos semanas, recomiendo verificación humana antes de actuar". Eso no es ciencia ficción — es exactamente el tipo de contexto que un catálogo con linaje automático puede exponer, vía API, a cualquier sistema que lo consuma, incluyendo agentes.
 
 La arquitectura que les mostré no fue diseñada pensando específicamente en agentes de IA — fue diseñada para resolver gobernanza de datos en general. Pero es, casi accidentalmente, exactamente la infraestructura que la era de los agentes necesita. Porque al final, la pregunta que un compliance officer le hace a un equipo de datos, y la pregunta que un agente de IA debería poder hacerse a sí mismo antes de actuar, son la misma pregunta: *"¿de dónde viene esto, y puedo confiar en ello?"*
+-->
 
 ---
+<!-- trigger: poll-cierre -->
+# Cierre y Llamado a la Acción
 
-**[57:00 – 60:00] — CIERRE Y LLAMADO A LA ACCIÓN**
+--
+**1. Piloto pequeño**
 
+--
+**2. Auditar trazabilidad antes de sumar agentes**
+
+--
+**3. Conectar linaje con gobernanza**
+
+<!-- notes:
 Quiero dejarles tres pasos concretos, para llevarse de esta charla más allá de la teoría.
 
 **Primero: empiecen con un piloto pequeño.** No necesitan migrar todos sus modelos dbt de una vez. Los mismos componentes —Step Functions, Fargate, Athena, S3— escalan desde un proyecto piloto de diez modelos hasta cargas de trabajo empresariales de cientos. Empiecen con los modelos que alimentan sus casos de uso de IA más críticos — ahí es donde el retorno de esta inversión se siente primero.
@@ -244,5 +307,4 @@ Para cerrar, quiero dejarles la idea central de toda esta charla, en una sola fr
 **La inteligencia artificial no creó el problema de la falta de linaje — pero sí eliminó nuestro margen de error para ignorarlo.** Durante años pudimos vivir con documentación desactualizada porque siempre había un humano revisando antes de actuar. Esa red de seguridad ya no está garantizada. Y la buena noticia es que la solución no requiere reinventar nada — requiere conectar, de forma automática, las piezas que probablemente ya tienen: dbt, un catálogo de datos, y un estándar abierto que ya existe para unirlos.
 
 Muchas gracias. Quedo abierto a preguntas.
-
-*[FIN — 60:00]*
+-->

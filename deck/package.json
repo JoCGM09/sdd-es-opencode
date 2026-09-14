@@ -4,18 +4,22 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "predev": "node scripts/parse-pitch.js",
     "dev": "vite",
+    "prebuild": "node scripts/parse-pitch.js",
     "build": "vue-tsc -b && vite build",
-    "test": "vitest",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest"
   },
   "dependencies": {
     "dompurify": "^3.4.15",
+    "marked": "^18.0.13",
     "vue": "^3.5.42",
     "vue-router": "^4.6.4"
   },
   "devDependencies": {
     "@types/dompurify": "^3.0.5",
+    "@types/marked": "^5.0.2",
     "@types/node": "^24.13.3",
     "@vitejs/plugin-vue": "^6.0.8",
     "@vue/test-utils": "^2.5.0",

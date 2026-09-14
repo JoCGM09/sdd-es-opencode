@@ -10,4 +10,5 @@ export interface Slide {
   content: string; // Contenido base de la slide
   steps?: SlideStep[]; // Fragments que van apareciendo
   interactionTrigger?: string; // ID para disparar evento en el server (Fase 3)
+  notes?: string; // Notas del presentador
 }
