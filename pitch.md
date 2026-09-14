@@ -208,6 +208,18 @@ Ahora sí, vamos a la parte práctica: cómo se resuelve esto, con una arquitect
 
 <AwsArchitectureDiagram />
 
+--
+**1. Orquestación (EventBridge + Step Functions)**
+
+--
+**2. Cómputo (ECS Fargate + dbt-ol)**
+
+--
+**3. Motor y Almacenamiento (Athena + Iceberg + Glue)**
+
+--
+**4. Linaje y Gobernanza (DataZone + SageMaker)**
+
 <!-- notes:
 Lo que les voy a mostrar es una arquitectura de referencia publicada por el equipo de AWS, que resuelve exactamente el problema que acabamos de describir: capturar el linaje de las transformaciones dbt de forma automática, sin intervención manual, y conectarlo directamente con el catálogo de datos de la organización.
 
