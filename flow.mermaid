@@ -21,7 +21,12 @@ graph TD
         I --> J["Crear specs/FECHA-feature/requirements.md"];
         I --> K["Crear specs/FECHA-feature/plan.md (Pasos técnicos)"];
         I --> L["Crear specs/FECHA-feature/validation.md (Criterios de éxito)"];
-        K --> K1{"¿Plan aprobado por Usuario?"};
+        K --> POC1{"¿Requiere Validar Tecnología?"};
+        POC1 -- Sí --> POC2["Comando: /poc"];
+        POC2 --> POC3{{"Agente: proof-of-concept"}};
+        POC3 --> POC4["Validar y decidir tecnología"];
+        POC4 --> K1;
+        POC1 -- No --> K1{"¿Plan aprobado por Usuario?"};
         K1 -- No --> I;
     end
 

@@ -27,7 +27,8 @@ Estructura:
 │   │   ├── spec-writer.md
 │   │   ├── test-writer.md
 │   │   ├── security-reviewer.md
-│   │   └── code-reviewer.md
+│   │   ├── code-reviewer.md
+│   │   └── proof-of-concept.md
 │   ├── skills/                # conocimiento reusable (SKILL.md)
 │   │   ├── seguridad-buenas-practicas/SKILL.md
 │   │   |── test-strategy/SKILL.md
@@ -87,6 +88,12 @@ Esto lee tu `README.md` de stakeholders y, despues de preguntarte lo necesario c
 - `specs/roadmap.md`
 
 Revisalos y ajustalos a mano si algo quedo mal - son la base de todo lo demas, vale la pena que sean correctos.
+
+### Paso 1.5 - Prueba de Concepto (Opcional)
+```
+Comando: /poc <hipótesis o tecnología a validar>
+```
+El agente `proof-of-concept` evalúa herramientas o arquitecturas antes de comprometerse. Crea una pequeña prueba en una carpeta separada y determina un ganador antes de que la feature comience a desarrollarse formalmente.
 
 ### Paso 2 - Nueva feature (por cada fase del roadmap)
 ```

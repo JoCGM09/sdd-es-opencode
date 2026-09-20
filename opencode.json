@@ -44,7 +44,7 @@
       "mode": "subagent",
       "description": "Redacta constitution y specs de feature; NUNCA implementa código.",
       "model": "google/gemini-3.1-pro-preview",
-      "tools": { "write": true, "edit": true, "bash": false, "webfetch": false }
+      "tools": { "write": true, "edit": true, "bash": false, "webfetch": false, "question": true }
     },
 
     "test-writer": {
@@ -70,6 +70,17 @@
       "description": "Revisión de calidad de código de solo lectura, sin editar.",
       "model": "google/gemini-3-flash-preview",
       "tools": { "write": false, "edit": false, "bash": false, "webfetch": false }
+    },
+
+    "proof-of-concept": {
+      "mode": "subagent",
+      "description": "Construye pruebas de concepto (POC) para validar hipótesis, comparar tecnologías o iterar rápidamente.",
+      "model": "google/gemini-3.1-pro-preview",
+      "tools": { "write": true, "edit": true, "bash": true, "webfetch": true },
+      "permission": {
+        "edit": "allow",
+        "bash": { "*": "ask", "npm *": "allow" }
+      }
     }
   }
 }

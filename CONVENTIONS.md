@@ -6,6 +6,8 @@ Este archivo se carga SIEMPRE (ver `instructions` en opencode.json).
 <!-- Completa esto con todos los detalles de tu proyecto con conocimiento general compartido -->
 Todo lo que pongas aquí no hace falta repetirlo en cada prompt: es la forma más barata de "entrenar" al agente para tu proyecto. Mantenlo corto (< 1 página) — cada línea de más se paga en tokens en cada turno, de cada sesión, para siempre.
 
+**REGLA DE HIERRO:** NUNCA sobrescribir, borrar ni modificar el archivo `AGENTS.md` durante la generación de código, refactors o inicialización de proyectos (por ejemplo con Next.js u otros frameworks). Este archivo es el núcleo del framework SDD y debe permanecer intacto bajo cualquier circunstancia.
+
 ## Flujo de trabajo obligatorio (SDD)
 
 1. No se escribe código sin un `plan.md` aprobado en `specs/<fecha>-<feature>/`.
@@ -54,6 +56,7 @@ Puedes consultar o invocar estas habilidades:
 - **definicion-de-marca**: (Instrucciones en `.opencode/skills/definicion-de-marca/SKILL.md`)
 - **deploy-netlify**: (Instrucciones en `.opencode/skills/deploy-netlify/SKILL.md`)
 - **generador-de-skills**: (Instrucciones en `.opencode/skills/generador-de-skills/SKILL.md`)
+- **poc-strategy**: (Instrucciones en `.opencode/skills/poc-strategy/SKILL.md`)
 - **seguridad-buenas-practicas**: (Instrucciones en `.opencode/skills/seguridad-buenas-practicas/SKILL.md`)
 - **test-strategy**: (Instrucciones en `.opencode/skills/test-strategy/SKILL.md`)
 
@@ -78,6 +81,11 @@ Este repositorio soporta los siguientes comandos que simulan el comportamiento n
 - **Qué hace:** Implementa el siguiente grupo de tareas pendiente del plan.md de la feature actual
 - **Rol que debes asumir:** `build` (Lee `.opencode/agent/build.md`)
 - **Lógica de ejecución:** Sigue paso a paso las instrucciones detalladas en `.opencode/commands/implement.md`.
+
+### Comando: `/poc`
+- **Qué hace:** Construye una prueba de concepto (POC) para validar hipótesis técnicas o comparar tecnologías.
+- **Rol que debes asumir:** `proof-of-concept` (Lee `.opencode/agent/proof-of-concept.md`)
+- **Lógica de ejecución:** Sigue paso a paso las instrucciones detalladas en `.opencode/commands/poc.md`.
 
 ### Comando: `/security-review`
 - **Qué hace:** Revisión de seguridad de solo lectura sobre el diff actual antes de mergear

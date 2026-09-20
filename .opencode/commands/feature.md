@@ -3,8 +3,10 @@ description: Arranca una feature nueva - siguiente fase del roadmap, branch, y s
 agent: spec-writer
 ---
 
+**Contexto del usuario:** `$ARGUMENTS` (Toma esto como base principal para la feature).
+
 1. Lee `specs/roadmap.md` y ubica la siguiente fase no implementada.
-2. RUN `git checkout -b feature/$ARGUMENTS` (si el usuario no dio nombre, propone uno corto en kebab-case basado en la fase).
+2. RUN `git checkout -b feature/$ARGUMENTS` (si el usuario no dio nombre en el input, propone uno corto en kebab-case basado en la fase).
 3. Crea el directorio `specs/YYYY-MM-DD-<nombre-feature>/` (usa la fecha de hoy).
 4. Dentro, utiliza las plantillas de `specs/_template-feature` crea:
    - `requirements.md` — alcance, decisiones tomadas, contexto y lo que está explícitamente fuera de alcance.
@@ -17,4 +19,4 @@ Si los requerimientos o el plan específico para esta feature lo requiere, utili
 
 Inicialmente, utilizar la skill `definicion-de-marca` para plantear las bases del diseño, visuales, UX/UI e interfaces de la aplicación.
 
-IMPORTANTE: antes de escribir CUALQUIER archivo, usa la herramienta de preguntas agrupando las preguntas de los tres documentos en una sola tanda. No escribas a disco sin haber confirmado con el usuario.
+IMPORTANTE: antes de escribir CUALQUIER archivo, DEBES usar estrictamente la herramienta `question` (ask_question tool) agrupando las preguntas de los tres documentos en una sola llamada. NO imprimas las preguntas como texto plano en el chat, utiliza la interfaz de la tool obligatoriamente. No escribas a disco sin haber recibido respuesta del usuario a través de la herramienta.

@@ -4,6 +4,8 @@ Este archivo se carga SIEMPRE (ver `instructions` en opencode.json).
 <!-- Completa esto con todos los detalles de tu proyecto con conocimiento general compartido -->
 Todo lo que pongas aquí no hace falta repetirlo en cada prompt: es la forma más barata de "entrenar" al agente para tu proyecto. Mantenlo corto (< 1 página) — cada línea de más se paga en tokens en cada turno, de cada sesión, para siempre.
 
+**REGLA DE HIERRO:** NUNCA sobrescribir, borrar ni modificar el archivo `AGENTS.md` durante la generación de código, refactors o inicialización de proyectos (por ejemplo con Next.js u otros frameworks). Este archivo es el núcleo del framework SDD y debe permanecer intacto bajo cualquier circunstancia.
+
 ## Flujo de trabajo obligatorio (SDD)
 
 1. No se escribe código sin un `plan.md` aprobado en `specs/<fecha>-<feature>/`.
